@@ -100,9 +100,13 @@ int main(int argc, char *argv[])
 
     std::chrono::duration<float> duration = finish - start; // duration
 
-    std::cout << "Write data: " << DATA << " bytes"
+    size_t endDataWrite = lseek(fd, 0, SEEK_END); // size new file
+    std::cout << "Write data\t" << DATA << " bytes"
               << "\n"
-              << "Time write: " << duration.count() << " sec.\n"
+              << "Size file: " << argv[1] << "\t" << endDataWrite << " bytes"
+              << "\n"
+              << "Time write: " << duration.count() << " sec."
+              << "\n"
               << "Speed write: " << (DATA / duration.count()) / 1024 / 1014 << " Mbytes/sec."
               << "\n"; // show info
 
