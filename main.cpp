@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-    if(argc != 2)
+    if(argc != 2) // maybe error
     {
         std::cout << "[ERROR:] need output file" << "\n";
         return -1;
