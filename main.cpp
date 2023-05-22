@@ -103,9 +103,9 @@ int main(int argc, char *argv[])
     size_t endDataWrite = lseek(fd, 0, SEEK_END); // size new file
     
     /*show result*/
-    std::cout << "Write data\t\t" << DATA << " bytes"
+    std::cout << "Write data " << DATA << " bytes"
               << "\n"
-              << "Size file: " << argv[1] << "\t\t" << endDataWrite << " bytes"
+              << "Size file " << argv[1] << " " << endDataWrite << " bytes"
               << "\n"
               << "Time write: " << duration.count() << " sec."
               << "\n"
