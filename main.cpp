@@ -67,6 +67,7 @@ int main(int argc, char *argv[])
                 bytesWritten += currentlyWritten; // plus count
             }
             dataWrite -= dataWrite;
+            free(buf_new); // clear
         }
         else
         {
@@ -95,11 +96,10 @@ int main(int argc, char *argv[])
     std::cout << "Write data: " << DATA << " bytes"
               << "\n"
               << "Time write: " << duration.count() << " sec.\n"
-              << "Speed write: " << (DATA / duration.count())/1024/1014 << " Mbytes/sec."
+              << "Speed write: " << (DATA / duration.count()) / 1024 / 1014 << " Mbytes/sec."
               << "\n"; // show info
 
     /*clean*/
     free(buf);
     close(fd);
-    
 }
