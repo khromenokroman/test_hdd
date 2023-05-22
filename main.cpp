@@ -6,6 +6,12 @@
 
 int main(int argc, char *argv[])
 {
+    if(argc != 2)
+    {
+        std::cout << "[ERROR:] need output file" << "\n";
+        return -1;
+    }
+
     const size_t DATA = 10737418240;
     char *buf = nullptr;
     const size_t SIZE_BUFFER = 4000; // buffer
