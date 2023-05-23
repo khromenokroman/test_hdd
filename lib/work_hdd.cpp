@@ -43,7 +43,6 @@ void Device::open_file(char *file_name) // open file
 
 void Device::write_file()
 {
-    
     for (; this->data_write != 0; this->data_write - buffer_size)
     {
         size_t bytes_to_write = buffer_size;
@@ -58,7 +57,7 @@ void Device::write_file()
                 this->~Device();
                 std::abort();
             }
-            
+
             bytes_written += currently_written; // plus count
         }
         this->data_write -= buffer_size;
