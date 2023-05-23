@@ -11,6 +11,7 @@ int main()
     {
         Device nvme("data", 2);
         nvme.write_file();
+        system("ls -lh | grep data");
     }
     catch (const char *ex)
     {
