@@ -12,10 +12,8 @@ int main()
         Device nvme("data", 2);
         nvme.write_file();
     }
-    catch(...)
+    catch (const char *ex)
     {
-        std::cout << "Ooopppss!!" << "\n";
+        std::cout << ex << "\n";
     }
-    
-    
 }

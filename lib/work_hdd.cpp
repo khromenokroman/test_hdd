@@ -10,6 +10,7 @@ void Device::create_buffer() // create buffer
 {
     std::unique_ptr<char> uniqPtrBuffer(new char(this->buffer_size)); // smart ptr
     this->buf = uniqPtrBuffer.get();
+    // throw "[Error] Cannot give me memory!";
     for (int i = 0; i < this->buffer_size; i++) // init buf
     {
         this->buf[i] = 0;
@@ -33,7 +34,6 @@ Device::Device(char *file_name, size_t data_write) : Device::Device(file_name)
 Device::~Device() // clear
 {
     close(this->fd);
-    std::cout << "destr OK!" << std::endl;
 }
 
 void Device::open_file(char *file_name) // open file
@@ -43,6 +43,7 @@ void Device::open_file(char *file_name) // open file
 
 void Device::write_file()
 {
+    
     for (; this->data_write != 0; this->data_write - buffer_size)
     {
         size_t bytes_to_write = buffer_size;
@@ -54,10 +55,12 @@ void Device::write_file()
             {
                 std::cout << "[ERROR] Cannnot write file!"
                           << "\n";
+                this->~Device();
+                std::abort();
             }
+            
             bytes_written += currently_written; // plus count
         }
         this->data_write -= buffer_size;
     }
-    // throw "error";
 }
