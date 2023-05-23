@@ -18,5 +18,12 @@ Device::Device(char *fileName)
         std::cout << "[ERROR] Cannnot open file!"
                   << "\n";
     }
+
+    this->buf = new char[SIZE_BUFFER]; // buffer
+    if (NULL == this->buf) // maybe error
+    {
+        std::cout << "[ERROR] System cannot give memory!"
+                  << "\n";
+    }
 }
 
