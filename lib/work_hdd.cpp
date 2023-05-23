@@ -10,7 +10,7 @@ size_t Device::get_fd() // return file description
     return this->fd;
 }
 
-size_t Device::createBuffer(size_t bufferSize) noexcept//create buffer
+void Device::createBuffer(size_t bufferSize) //create buffer
 {
     this->bufferSize = bufferSize;
     this->buf = new char[bufferSize]; // buffer
@@ -43,12 +43,12 @@ Device::~Device() //clear
     delete [] this->buf;
 }
 
-void Device::openFile() noexcept //openfile
+void Device::openFile()  //openfile
 {
     this->fd = open("1.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
 }
 
-size_t Device::writeFile()
+void Device::writeFile()
 {
     for (int i = 0; i < bufferSize; i++) // init buf
     {
