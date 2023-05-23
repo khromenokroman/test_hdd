@@ -10,7 +10,6 @@ void Device::create_buffer() // create buffer
 {
     std::unique_ptr<char> uniqPtrBuffer(new char(this->buffer_size)); // smart ptr
     this->buf = uniqPtrBuffer.get();
-    // throw "[Error] Cannot give me memory!";
     for (int i = 0; i < this->buffer_size; i++) // init buf
     {
         this->buf[i] = 0;
