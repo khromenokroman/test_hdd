@@ -7,5 +7,14 @@
 
 int main()
 {
-    Device nvme(4);
+    try
+    {
+        Device nvme("data", 2);
+    }
+    catch(...)
+    {
+        std::cout << "Ooopppss!!" << "\n";
+    }
+    
+    
 }

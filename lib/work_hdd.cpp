@@ -8,35 +8,27 @@
 
 void Device::createBuffer() // create buffer
 {
-    std::unique_ptr<char> uniqPtrBuffer(new char(this->bufferSize)); //smart ptr
-    this->buf = uniqPtrBuffer.get(); 
+    std::unique_ptr<char> uniqPtrBuffer(new char(this->bufferSize)); // smart ptr
+    this->buf = uniqPtrBuffer.get();
     for (int i = 0; i < this->bufferSize; i++) // init buf
     {
         this->buf[i] = 0;
     }
 }
 
-Device::Device(size_t dataWrite)
+Device::Device(char *file_name) // protect open file
 {
-    this->dataWrite = dataWrite * 1024 * 1024 * 1024;
-    std::cout << "data byte: " << this->dataWrite << " data Gb: " << dataWrite << std::endl;
-    openFile();
-    if (this->fd != -1)
-    {
-        createBuffer();
-        if (this->buf != NULL)
-        {
-            writeFile();
-        }
-        else
-        {
-            std::cout << "[ERROR] Cannot create buffer!" << std::endl;
-        }
-    }
-    else
-    {
-        std::cout << "[ERROR] Cannot open file!" << std::endl;
-    }
+    this->file_name = file_name;
+    openFile(this->file_name);
+}
+
+Device::Device(char *file_name, size_t dataWrite) : Device::Device(file_name)
+{
+    this->dataWrite = dataWrite * 1024 * 1024 * 1024;                                        // translate Gb in byte
+    std::cout << "data byte: " << this->dataWrite << " data Gb: " << dataWrite << std::endl; // show
+
+    createBuffer(); // run create bufer
+    writeFile();    // write data in file
 }
 
 Device::~Device() // clear
@@ -44,9 +36,9 @@ Device::~Device() // clear
     close(this->fd);
 }
 
-void Device::openFile() // openfile
+void Device::openFile(char *file_name) // open file
 {
-    this->fd = open("1.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
+    this->fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
 }
 
 void Device::writeFile()
