@@ -8,5 +8,5 @@
 
 int main(int argc, char *argv[])
 {
-    Device d(500);
+    Device d(4.2);
 }

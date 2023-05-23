@@ -7,8 +7,8 @@ class Device final // not member
 private:
     int fd;              // file descriptor
     char *buf = nullptr; // bufer
-    size_t bufferSize;   // buffer
-    size_t dataWrite = 10737418240;
+    size_t bufferSize = 4096;   // buffer
+    int dataWrite;    // size data write
 
     void openFile();                      // open file
     void createBuffer(size_t bufferSize); // create buf
@@ -20,6 +20,6 @@ public:
     Device(const Device &&dev) = delete;    // move del
     Device operator=(Device &dev) = delete; //= del
 
-    Device(size_t bufferSize);
-    ~Device(); // clear
+    Device(size_t dataWrite); // init
+    ~Device();                                   // clear
 };
