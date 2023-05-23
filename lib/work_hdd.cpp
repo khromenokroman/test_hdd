@@ -6,11 +6,11 @@
 
 #include "work_hdd.h"
 
-void Device::createBuffer() // create buffer
+void Device::create_buffer() // create buffer
 {
-    std::unique_ptr<char> uniqPtrBuffer(new char(this->bufferSize)); // smart ptr
+    std::unique_ptr<char> uniqPtrBuffer(new char(this->buffer_size)); // smart ptr
     this->buf = uniqPtrBuffer.get();
-    for (int i = 0; i < this->bufferSize; i++) // init buf
+    for (int i = 0; i < this->buffer_size; i++) // init buf
     {
         this->buf[i] = 0;
     }
@@ -19,44 +19,45 @@ void Device::createBuffer() // create buffer
 Device::Device(char *file_name) // protect open file
 {
     this->file_name = file_name;
-    openFile(this->file_name);
+    open_file(this->file_name);
 }
 
-Device::Device(char *file_name, size_t dataWrite) : Device::Device(file_name)
+Device::Device(char *file_name, size_t data_write) : Device::Device(file_name)
 {
-    this->dataWrite = dataWrite * 1024 * 1024 * 1024;                                        // translate Gb in byte
-    std::cout << "data byte: " << this->dataWrite << " data Gb: " << dataWrite << std::endl; // show
+    this->data_write = data_write * 1024 * 1024 * 1024;                                        // translate Gb in byte
+    std::cout << "data byte: " << this->data_write << " data Gb: " << data_write << std::endl; // show
 
-    createBuffer(); // run create bufer
-    writeFile();    // write data in file
+    create_buffer(); // run create bufer
 }
 
 Device::~Device() // clear
 {
     close(this->fd);
+    std::cout << "destr OK!" << std::endl;
 }
 
-void Device::openFile(char *file_name) // open file
+void Device::open_file(char *file_name) // open file
 {
     this->fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
 }
 
-void Device::writeFile()
+void Device::write_file()
 {
-    for (; this->dataWrite != 0; this->dataWrite - bufferSize)
+    for (; this->data_write != 0; this->data_write - buffer_size)
     {
-        size_t bytesToWrite = bufferSize;
-        for (int bytesWritten = 0; bytesWritten < bytesToWrite;) // check
+        size_t bytes_to_write = buffer_size;
+        for (int bytes_written = 0; bytes_written < bytes_to_write;) // check
         {
 
-            int currentlyWritten = write(fd, buf + bytesWritten, bytesToWrite - bytesWritten); // write
-            if (currentlyWritten == -1)                                                        // maybe error
+            int currently_written = write(fd, buf + bytes_written, bytes_to_write - bytes_written); // write
+            if (currently_written == -1)                                                            // maybe error
             {
                 std::cout << "[ERROR] Cannnot write file!"
                           << "\n";
             }
-            bytesWritten += currentlyWritten; // plus count
+            bytes_written += currently_written; // plus count
         }
-        this->dataWrite -= bufferSize;
+        this->data_write -= buffer_size;
     }
+    // throw "error";
 }
