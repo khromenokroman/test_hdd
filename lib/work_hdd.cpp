@@ -2,17 +2,18 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <memory>
 
 #include "work_hdd.h"
 
 void Device::createBuffer() // create buffer
 {
-    this->buf = new char[this->bufferSize]; // buffer
+    std::unique_ptr<char> uniqPtrBuffer(new char(this->bufferSize)); //smart ptr
+    this->buf = uniqPtrBuffer.get(); 
     for (int i = 0; i < this->bufferSize; i++) // init buf
     {
         this->buf[i] = 0;
     }
-    std::cout << "buffer OK" << std::endl;
 }
 
 Device::Device(size_t dataWrite)
@@ -41,14 +42,11 @@ Device::Device(size_t dataWrite)
 Device::~Device() // clear
 {
     close(this->fd);
-    delete[] this->buf;
-    std::cout << "destructor OK" << std::endl;
 }
 
 void Device::openFile() // openfile
 {
     this->fd = open("1.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
-    std::cout << "open file OK" << std::endl;
 }
 
 void Device::writeFile()
@@ -69,5 +67,4 @@ void Device::writeFile()
         }
         this->dataWrite -= bufferSize;
     }
-    std::cout << "write in file OK" << std::endl;
 }

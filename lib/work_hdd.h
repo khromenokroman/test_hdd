@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-
 class Device final // not member
 {
 private:
