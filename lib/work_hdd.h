@@ -5,9 +5,10 @@
 class Device final // not member
 {
 private:
-    int fd;              // file descriptor
-    char *buf = nullptr; // bufer
-    std::string fileName;
+    int fd;                          // file descriptor
+    char *buf = nullptr;             // bufer
+    std::string fileName;            // file name
+    const size_t SIZE_BUFFER = 4000; // buffer
 
 public:
     Device(const Device &dev) = delete;     // copy del
@@ -15,7 +16,7 @@ public:
     Device operator=(Device &dev) = delete; //= del
 
     Device(char *fileName){}; // open file
-    size_t get_fd();                // return file description
+    size_t get_fd();          // return file description
 
     ~Device(){}; // clear
 };
