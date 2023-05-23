@@ -18,8 +18,9 @@ int main(int argc, char *argv[])
     const size_t SIZE_BUFFER = 4000; // buffer
     size_t dataWrite = DATA;
 
-    buf = (char *)malloc(SIZE_BUFFER); // alloc buffer
-    if (NULL == buf)                   // maybe error
+    buf = new char[SIZE_BUFFER]; // buffer
+    // buf = (char *)malloc(SIZE_BUFFER); // alloc buffer
+    if (NULL == buf) // maybe error
     {
         std::cout << "[ERROR] System cannot give memory!"
                   << "\n";
@@ -27,7 +28,7 @@ int main(int argc, char *argv[])
     }
 
     int fd = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
-    if (fd == -1)                                                                                                    // maybe error                                                                                                    // maybe error
+    if (fd == -1)                                                                                                    // maybe error
     {
         std::cout << "[ERROR] Cannnot open file!"
                   << "\n";
@@ -46,8 +47,9 @@ int main(int argc, char *argv[])
 
         if (dataWrite < SIZE_BUFFER)
         {
-            char *buf_new = (char *)malloc(dataWrite); // alloc bufer
-            if (NULL == buf_new)                       // maybe error
+            // char *buf_new = (char *)malloc(dataWrite); // alloc bufer
+            char *buf_new = new char[dataWrite]; // buffer
+            if (NULL == buf_new)                 // maybe error
             {
                 std::cout << "[ERROR] System cannot give memory!"
                           << "\n";
@@ -101,7 +103,7 @@ int main(int argc, char *argv[])
     std::chrono::duration<float> duration = finish - start; // duration
 
     size_t endDataWrite = lseek(fd, 0, SEEK_END); // size new file
-    
+
     /*show result*/
     std::cout << "Write data " << DATA << " bytes"
               << "\n"
