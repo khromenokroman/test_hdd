@@ -6,7 +6,7 @@
 
 #include "../lib/work_hdd.h"
 
-int main(int argc, char *argv[])
+int main()
 {
-    Device d(4.2);
+    Device nvme(4);
 }

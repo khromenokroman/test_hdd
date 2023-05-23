@@ -5,28 +5,24 @@
 
 #include "work_hdd.h"
 
-size_t Device::get_fd() // return file description
+void Device::createBuffer() // create buffer
 {
-    return this->fd;
-}
-
-void Device::createBuffer(size_t bufferSize) // create buffer
-{
-    this->bufferSize = bufferSize;
-    this->buf = new char[bufferSize]; // buffer
-    for (int i = 0; i < bufferSize; i++) // init buf
+    this->buf = new char[this->bufferSize]; // buffer
+    for (int i = 0; i < this->bufferSize; i++) // init buf
     {
         this->buf[i] = 0;
     }
+    std::cout << "buffer OK" << std::endl;
 }
 
 Device::Device(size_t dataWrite)
 {
     this->dataWrite = dataWrite * 1024 * 1024 * 1024;
+    std::cout << "data byte: " << this->dataWrite << " data Gb: " << dataWrite << std::endl;
     openFile();
     if (this->fd != -1)
     {
-        createBuffer(bufferSize);
+        createBuffer();
         if (this->buf != NULL)
         {
             writeFile();
@@ -46,11 +42,13 @@ Device::~Device() // clear
 {
     close(this->fd);
     delete[] this->buf;
+    std::cout << "destructor OK" << std::endl;
 }
 
 void Device::openFile() // openfile
 {
     this->fd = open("1.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
+    std::cout << "open file OK" << std::endl;
 }
 
 void Device::writeFile()
@@ -71,4 +69,5 @@ void Device::writeFile()
         }
         this->dataWrite -= bufferSize;
     }
+    std::cout << "write in file OK" << std::endl;
 }

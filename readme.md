@@ -17,9 +17,10 @@ mkdir build && cd build
 cmake ..
 cmake --build .
 ```
+### Также при сборке будет создана динамическая библиотека
 
 ### Запуск
 
 ```
-test_speed_hdd 1.txt
+speed_test_hdd
 ```
