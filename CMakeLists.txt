@@ -6,7 +6,7 @@ add_executable(${PROJECT_NAME}
     ${PROJECT_SOURCE_DIR}/src/main.cpp
 )
 
-#add_library(${PROJECT_NAME}_ll SHARED "~/Рабочий стол/Coding/c++/work/library/dinamic/lib_src/static_lib.cpp")
+add_library(${PROJECT_NAME}_lib SHARED ${PROJECT_SOURCE_DIR/lib/work_hdd.cpp})
 
 #add_library(${PROJECT_NAME}_ll::lib_1 ALIAS ${PROJECT_NAME}_ll)
 
