@@ -10,6 +10,7 @@ int main()
     try
     {
         Device nvme("data", 2);
+        nvme.write_file();
     }
     catch(...)
     {
