@@ -14,7 +14,7 @@ public:
     Device(const Device &&dev) = delete;    // move del
     Device operator=(Device &dev) = delete; //= del
 
-    Device(std::string fileNmae){}; // open file
+    Device(char *fileName){}; // open file
     size_t get_fd();                // return file description
 
     ~Device(){}; // clear
