@@ -1,11 +1,20 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(test_speed_hdd)
+project(speed_test_hdd)
 
-add_executable(test_speed_hdd
-    main.cpp
+add_executable(${PROJECT_NAME}
+    ${PROJECT_SOURCE_DIR}/src/main.cpp
 )
-set_target_properties(test_speed_hdd PROPERTIES
+
+#add_library(${PROJECT_NAME}_ll SHARED "~/Рабочий стол/Coding/c++/work/library/dinamic/lib_src/static_lib.cpp")
+
+#add_library(${PROJECT_NAME}_ll::lib_1 ALIAS ${PROJECT_NAME}_ll)
+
+#target_include_directories(${PROJECT_NAME}_ll PUBLIC ${PROJECT_SOURCE_DIR}/lib_src)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
 )
+
+#target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_ll::lib_1)
