@@ -8,7 +8,7 @@
 
 void Device::create_buffer() // create buffer
 {
-    std::unique_ptr<char> uniqPtrBuffer(new char(this->buffer_size)); // smart ptr
+    std::unique_ptr<char> uniqPtrBuffer(new char[this->buffer_size]); // smart ptr
     this->buf = uniqPtrBuffer.get();
     for (int i = 0; i < this->buffer_size; i++) // init buf
     {
