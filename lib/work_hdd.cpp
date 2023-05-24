@@ -16,13 +16,12 @@ void Device::create_buffer() // create buffer
     }
 }
 
-Device::Device(char *file_name) // protect open file
+Device::Device(std::string &file_name) // protect open file
 {
-    this->file_name = file_name;
-    open_file(this->file_name);
+    open_file(file_name);
 }
 
-Device::Device(char *file_name, size_t data_write) : Device::Device(file_name)
+Device::Device(std::string &file_name, size_t data_write) : Device::Device(file_name)
 {
     this->data_write = data_write * 1024 * 1024 * 1024;                                         // translate Gb in byte
     std::cout << "data byte: " << this->data_write << " data GiB: " << data_write << std::endl; // show
@@ -35,9 +34,9 @@ Device::~Device() // clear
     close(this->fd);
 }
 
-void Device::open_file(char *file_name) // open file
+void Device::open_file(std::string &file_name) // open file
 {
-    fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
+    fd = open(file_name.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
     if (fd == -1)
     {
         throw My_error("[ERROR] open file");
