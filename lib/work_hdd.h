@@ -24,14 +24,14 @@ public:
     ~Device();                                  // clear
 };
 
+
+
+
 class My_error final : public std::exception
 {
 public:
     My_error(const std::string &message) : message{message} {}
-    const char *what() const noexcept override
-    {
-        return message.c_str(); // get in std::string строку const char*
-    }
+    const char *what() const noexcept override { return message.c_str(); }
     My_error(const My_error &&dev) = delete;    // move del
     My_error operator=(My_error &dev) = delete; // = del
 private:
