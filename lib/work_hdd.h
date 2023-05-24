@@ -27,10 +27,10 @@ class My_error final : public std::exception
 {
 public:
     My_error(const std::string &message) : message{message} {}
-    const char *what() const noexcept override { return message.c_str(); }
-    My_error(const My_error &&err) = delete;    // move del
-    My_error operator=(My_error &err) = delete; // = del
-    My_error(const My_error &err) = delete;         // copy del
+    const char *what() const noexcept override { return message.c_str(); } // message
+    My_error(const My_error &&err) = delete;                               // move del
+    My_error operator=(My_error &err) = delete;                            // = del
+    My_error(const My_error &err) = delete;                                // copy del
 private:
     std::string message; // message
 };
