@@ -8,11 +8,11 @@
 
 void Device::create_buffer() // create buffer
 {
-    std::unique_ptr<char> uniqPtrBuffer(new char[this->buffer_size]); // smart ptr
-    this->buf = uniqPtrBuffer.get();
-    for (int i = 0; i < this->buffer_size; i++) // init buf
+    std::unique_ptr<char> uniqPtrBuffer(new char[buffer_size]); // smart ptr
+    buf = uniqPtrBuffer.get();
+    for (int i = 0; i < buffer_size; i++) // init buf
     {
-        this->buf[i] = 0;
+        buf[i] = 0;
     }
 }
 
@@ -25,7 +25,7 @@ Device::Device(char *file_name) // protect open file
 Device::Device(char *file_name, size_t data_write) : Device::Device(file_name)
 {
     this->data_write = data_write * 1024 * 1024 * 1024;                                        // translate Gb in byte
-    std::cout << "data byte: " << this->data_write << " data Gb: " << data_write << std::endl; // show
+    std::cout << "data byte: " << this->data_write << " data GiB: " << data_write << std::endl; // show
 
     create_buffer(); // run create bufer
 }
@@ -37,12 +37,12 @@ Device::~Device() // clear
 
 void Device::open_file(char *file_name) // open file
 {
-    this->fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
+    fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
 }
 
 void Device::write_file()
 {
-    for (; this->data_write != 0; this->data_write - buffer_size)
+    for (; data_write != 0; data_write - buffer_size)
     {
         size_t bytes_to_write = buffer_size;
         for (int bytes_written = 0; bytes_written < bytes_to_write;) // check
@@ -53,11 +53,12 @@ void Device::write_file()
             {
                 std::cout << "[ERROR] Cannnot write file!"
                           << "\n";
-                throw "Error write in file";
+                throw My_exception("Error write in file");
             }
 
             bytes_written += currently_written; // plus count
         }
-        this->data_write -= buffer_size;
+        data_write -= buffer_size;
     }
 }
+

@@ -13,7 +13,7 @@ add_library(${PROJECT_NAME}_lib SHARED ${PROJECT_SOURCE_DIR}/lib/work_hdd.cpp)
 target_include_directories(${PROJECT_NAME}_lib PUBLIC ${PROJECT_SOURCE_DIR}/lib)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    CXX_STANDARD 17
+    CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON
 )
 
