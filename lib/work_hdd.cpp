@@ -53,7 +53,7 @@ void Device::write_file()
             {
                 std::cout << "[ERROR] Cannnot write file!"
                           << "\n";
-                throw My_exception("Error write in file");
+                throw My_error("Error write in file");
             }
 
             bytes_written += currently_written; // plus count
