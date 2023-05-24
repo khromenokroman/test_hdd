@@ -16,7 +16,7 @@ void Device::create_buffer() // create buffer
     }
 }
 
-Device::Device(std::string &file_name) // protect open file
+explicit Device::Device(std::string &file_name) // protect open file
 {
     open_file(file_name);
 }
