@@ -23,7 +23,11 @@ Device::Device(std::string &file_name) // protect open file
 
 Device::Device(std::string &file_name, size_t size_data_gib) : Device::Device(file_name)
 {
-    data_write = size_data_gib * 1024 * 1024 * 1024;                                      // translate Gb in byte
+    if (fd == -1) // maybe error
+    {
+        throw My_error("[ERROR] open file!");
+    }
+    data_write = size_data_gib * 1024 * 1024 * 1024;                                         // translate Gb in byte
     std::cout << "data byte: " << data_write << " data GiB: " << size_data_gib << std::endl; // show
 
     create_buffer(); // run create bufer
@@ -31,16 +35,15 @@ Device::Device(std::string &file_name, size_t size_data_gib) : Device::Device(fi
 
 Device::~Device() // clear
 {
-    close(this->fd);
+    if (close(fd) == -1) // maybe error
+    {
+        std::cout << "[ERROR] close file!" << std::endl;
+    }
 }
 
 void Device::open_file(std::string &file_name) // open file
 {
     fd = open(file_name.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
-    if (fd == -1)
-    {
-        throw My_error("[ERROR] open file");
-    }
 }
 
 void Device::write_file()
@@ -54,7 +57,7 @@ void Device::write_file()
             int currently_written = write(fd, buf + bytes_written, bytes_to_write - bytes_written); // write
             if (currently_written == -1)                                                            // maybe error
             {
-                throw My_error("[ERROR] write in file");
+                throw My_error("[ERROR] write in file!");
             }
 
             bytes_written += currently_written; // plus count

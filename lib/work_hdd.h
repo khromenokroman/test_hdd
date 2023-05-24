@@ -10,8 +10,8 @@ private:
     size_t data_write;               // size data write
 
     void open_file(std::string &file_name); // open file
-    void create_buffer();                   // create buf
-    Device(std::string &file_name);         // open file
+    void create_buffer();                  // create buf
+    Device(std::string &file_name);        // open file
 
 public:
     Device(const Device &&dev) = delete;    // move del
