@@ -21,10 +21,10 @@ Device::Device(std::string &file_name) // protect open file
     open_file(file_name);
 }
 
-Device::Device(std::string &file_name, size_t data_write) : Device::Device(file_name)
+Device::Device(std::string &file_name, size_t size_data_gib) : Device::Device(file_name)
 {
-    this->data_write = data_write * 1024 * 1024 * 1024;                                         // translate Gb in byte
-    std::cout << "data byte: " << this->data_write << " data GiB: " << data_write << std::endl; // show
+    data_write = size_data_gib * 1024 * 1024 * 1024;                                      // translate Gb in byte
+    std::cout << "data byte: " << data_write << " data GiB: " << size_data_gib << std::endl; // show
 
     create_buffer(); // run create bufer
 }

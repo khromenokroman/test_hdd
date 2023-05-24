@@ -7,9 +7,10 @@
 
 int main()
 {
+    std::string file_name = "data";
     try
     {
-        Device nvme("data", 1);
+        Device nvme(file_name, 1);
         nvme.write_file();
         system("ls -lh | grep data");
     }
