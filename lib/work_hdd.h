@@ -19,7 +19,7 @@ public:
     Device(std::string &file_name, size_t data_write); // main
     void write_file();                                 // write in file
 
-    ~Device();                                 // clear
+    ~Device();                                          // clear
     Device &operator=(Device &&dev) noexcept = default; // =move
 };
 
