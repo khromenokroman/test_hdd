@@ -10,10 +10,6 @@ void Device::create_buffer() // create buffer
 {
     std::unique_ptr<char[]> uniqPtrBuffer(new char[buffer_size]); // smart ptr
     buf = uniqPtrBuffer.get();
-    for (int i = 0; i < buffer_size; i++) // init buf
-    {
-        buf[i] = 0;
-    }
 }
 
 Device::Device(std::string &file_name) // protect open file
