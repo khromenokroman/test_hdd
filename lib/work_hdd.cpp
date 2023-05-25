@@ -34,14 +34,6 @@ Device::Device(std::string &file_name, size_t size_data_gib) : Device::Device(fi
     std::cout << "data byte: " << data_write << " data GiB: " << size_data_gib << std::endl; // show
 
     create_buffer(); // run create bufer
-    if (uniqPtrBuffer.get() == NULL)
-    {
-        std::cout << "NULL" << std::endl;
-    }
-    else
-    {
-        std::cout << "not NULL" << std::endl;
-    }
 }
 
 Device::~Device() // clear
