@@ -8,8 +8,15 @@
 
 void Device::create_buffer() // create buffer
 {
-    std::unique_ptr<char[]> uniqPtrBuffer(new char[buffer_size]); // smart ptr
-    buf = uniqPtrBuffer.get();
+    uniqPtrBuffer = std::unique_ptr<char[]>(new char[buffer_size]); // smart ptr
+    if (uniqPtrBuffer.get() == NULL)
+    {
+        throw My_error("[ERROR] OS cannot give me memmory");
+    }
+    else
+    {
+        buf = uniqPtrBuffer.get();
+    }
 }
 
 Device::Device(std::string &file_name) // protect open file
@@ -27,6 +34,14 @@ Device::Device(std::string &file_name, size_t size_data_gib) : Device::Device(fi
     std::cout << "data byte: " << data_write << " data GiB: " << size_data_gib << std::endl; // show
 
     create_buffer(); // run create bufer
+    if (uniqPtrBuffer.get() == NULL)
+    {
+        std::cout << "NULL" << std::endl;
+    }
+    else
+    {
+        std::cout << "not NULL" << std::endl;
+    }
 }
 
 Device::~Device() // clear

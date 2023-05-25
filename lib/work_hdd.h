@@ -1,10 +1,12 @@
 #pragma once
 #include <iostream>
+#include <memory>
 
 class Device final // not member
 {
 private:
-    int fd;                          // file descriptor
+    int fd; // file descriptor
+    std::unique_ptr<char[]> uniqPtrBuffer;
     char *buf = nullptr;             // bufer
     const size_t buffer_size = 4096; // buffer
     size_t data_write;               // size data write
