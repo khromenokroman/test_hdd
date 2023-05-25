@@ -42,7 +42,8 @@ Device::~Device() // clear
 
 void Device::open_file(std::string &file_name) // open file
 {
-    fd = open(file_name.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH); // open file
+    fd = open(file_name.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 660); // open file
+
 }
 
 void Device::write_file()

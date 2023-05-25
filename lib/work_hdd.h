@@ -1,3 +1,8 @@
+#pragma once
+
+#include <string>
+#include <memory>
+
 class Device final // not member
 {
 private:
@@ -11,25 +16,22 @@ private:
     explicit Device(std::string &file_name); // open file
 
 public:
-    Device &operator=(Device &&dev) = default; // =move del
-    // Device(const Device &&dev) = delete;      // move del
-    // Device &operator=(Device &dev) = delete;  // = del
-    // Device(const Device &dev) = delete;       // copy del
-
+    Device(std::string &file_name, size_t data_write); // main
     void write_file();                                 // write in file
-    Device(std::string &file_name, size_t data_write); // buffer
-    ~Device();                                         // clear
+
+    ~Device();                                 // clear
+    Device &operator=(Device &&dev) = default; // =move
 };
 
 class My_error final : public std::exception
 {
 public:
-    explicit My_error(const std::string &&message) : message{message} {}
+    explicit My_error(const std::string &&message) noexcept : message{std::move(message)} {}
     const char *what() const noexcept override { return message.c_str(); } // message
-    My_error &operator=(My_error &&err) = delete;                          // =move del
-    My_error(const My_error &&err) = delete;                               // move del
-    My_error &operator=(My_error &err) = delete;                           // = del
-    My_error(const My_error &err) = delete;                                // copy del
+    // My_error &operator=(My_error &&err) = delete;                          // =move del
+    // My_error(const My_error &&err) = delete;                               // move del
+    // My_error &operator=(My_error &err) = delete;                           // = del
+    // My_error(const My_error &err) = delete;                                // copy del
 private:
     std::string message; // message
 };

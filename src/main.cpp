@@ -10,10 +10,11 @@ int main()
     {
         Device nvme(file_name, 2);
         nvme.write_file();
-        system("ls -lh | grep data");
-    Device a(file_name2, 2);
 
-    // a = nvme;
+        Device a(file_name2, 2);
+        a.write_file();
+        
+        a = std::move(nvme);
 
     }
     catch (My_error &ex)
