@@ -1,22 +1,18 @@
-#include <iostream>
+#include "work_hdd.h"
+
 #include <stdio.h>
-#include <unistd.h>
 #include <fcntl.h>
+#include <unistd.h>
+
+#include <iostream>
+
 #include <memory>
 
-#include "work_hdd.h"
+
 
 void Device::create_buffer() // create buffer
 {
-    uniqPtrBuffer = std::unique_ptr<char[]>(new char[buffer_size]); // smart ptr
-    if (uniqPtrBuffer.get() == NULL)
-    {
-        throw My_error("[ERROR] OS cannot give me memmory");
-    }
-    else
-    {
-        buf = uniqPtrBuffer.get();
-    }
+    buf = std::unique_ptr<char[]>(new char[buffer_size]); // smart ptr
 }
 
 Device::Device(std::string &file_name) // protect open file
@@ -57,7 +53,7 @@ void Device::write_file()
         for (int bytes_written = 0; bytes_written < bytes_to_write;) // check
         {
 
-            int currently_written = write(fd, buf + bytes_written, bytes_to_write - bytes_written); // write
+            int currently_written = write(fd, buf.get() + bytes_written, bytes_to_write - bytes_written); // write
             if (currently_written == -1)                                                            // maybe error
             {
                 throw My_error("[ERROR] write in file!");
