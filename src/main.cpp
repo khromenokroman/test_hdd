@@ -1,18 +1,20 @@
-#include <iostream>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
+#include<iostream>
 
 #include "../lib/work_hdd.h"
 
 int main()
 {
     std::string file_name = "data";
+    std::string file_name2 = "data2";
     try
     {
         Device nvme(file_name, 2);
         nvme.write_file();
         system("ls -lh | grep data");
+    Device a(file_name2, 2);
+
+    // a = nvme;
+
     }
     catch (My_error &ex)
     {
