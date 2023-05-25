@@ -20,7 +20,7 @@ public:
     void write_file();                                 // write in file
 
     ~Device();                                 // clear
-    Device &operator=(Device &&dev) = default; // =move
+    Device &operator=(Device &&dev) noexcept = default; // =move
 };
 
 class My_error final : public std::exception
