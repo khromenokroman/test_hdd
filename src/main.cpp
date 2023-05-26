@@ -6,9 +6,14 @@
 int main()
 {
     std::string file_name = "test_ssd";
+    std::string file_name2 = "test_ssd2";
     try
     {
-        Device nvme(file_name, 5);
+        Device nvme(file_name, 2);
+        Device nvme2(file_name2,2);
+
+        foo(std::move(nvme2));
+
         nvme.write_file();
 
     }

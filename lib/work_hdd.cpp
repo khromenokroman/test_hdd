@@ -86,3 +86,8 @@ void Device::write_file()
               << "Speed write: " << (show_data / duration.count())/1024/1014 << " Mbytes/sec."
               << "\n"; // show info
 }
+
+void foo(Device &&a)
+{
+    a.write_file();
+}

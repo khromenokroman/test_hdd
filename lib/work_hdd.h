@@ -3,6 +3,8 @@
 #include <string>
 #include <memory>
 
+
+
 class Device final // not member
 {
 private:
@@ -33,3 +35,5 @@ public:
 private:
     std::string message; // message
 };
+
+void foo(Device &&a);
