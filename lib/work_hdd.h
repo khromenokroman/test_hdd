@@ -10,10 +10,12 @@ private:
     std::unique_ptr<char[]> buf;            // bufer
     static const size_t buffer_size = 4096; // buffer
     size_t data_write;                      // size data write
+    char tmp_file[40];
 
-    void open_file(std::string &file_name);  // open file
-    void create_buffer();                    // create buf
-    explicit Device(std::string &file_name); // open file
+    void parser_file_name(std::string &file_name); // parser file name -> temp file
+    void open_file();                              // open file
+    void create_buffer();                          // create buf
+    explicit Device(std::string &file_name);       // open file
 
 public:
     Device(std::string &file_name, size_t data_write); // main

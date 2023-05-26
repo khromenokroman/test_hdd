@@ -4,7 +4,7 @@
 
 int main()
 {
-    std::string file_name = "data";
+    std::string file_name = "test_ssd";
     try
     {
         Device nvme(file_name, 2);

@@ -15,9 +15,23 @@ void Device::create_buffer() // create buffer
     buf = std::unique_ptr<char[]>(new char[buffer_size]); // smart ptr
 }
 
+void Device::parser_file_name(std::string &file_name)
+{
+    if (file_name.length()> 15) // maybe long name
+        throw My_error("[ERROR] the name is too long!!!");
+    std::string path = "/tmp/" + file_name + "XXXXXX"; //sum
+    for (int i=0;i<path.length();i++)
+    {
+        tmp_file[i] = path[i];
+    }
+    tmp_file[path.length()] = '\0'; //end string
+}
+
 Device::Device(std::string &file_name) // protect open file
 {
-    open_file(file_name);
+    parser_file_name(file_name); //pasre
+    open_file(); //open file
+    
 }
 
 Device::Device(std::string &file_name, size_t size_data_gib) : Device::Device(file_name)
@@ -34,16 +48,12 @@ Device::Device(std::string &file_name, size_t size_data_gib) : Device::Device(fi
 
 Device::~Device() // clear
 {
-    if (close(fd) == -1) // maybe error
-    {
-        std::cout << "[ERROR] close file!" << std::endl;
-    }
+    unlink(tmp_file);
 }
 
-void Device::open_file(std::string &file_name) // open file
+void Device::open_file() // open file
 {
-    fd = open(file_name.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU | S_IRWXG); // open file
-
+    fd = mkstemp(tmp_file);
 }
 
 void Device::write_file()
