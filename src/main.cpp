@@ -10,10 +10,6 @@ int main()
     try
     {
         Device nvme(file_name, 2);
-        Device nvme2(file_name2,2);
-
-        foo(std::move(nvme2));
-
         nvme.write_file();
 
     }

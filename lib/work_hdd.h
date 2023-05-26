@@ -35,5 +35,3 @@ public:
 private:
     std::string message; // message
 };
-
-void foo(Device &&a);
