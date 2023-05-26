@@ -8,7 +8,7 @@ int main()
     std::string file_name = "test_ssd";
     try
     {
-        Device nvme(file_name, 20);
+        Device nvme(file_name, 5);
         nvme.write_file();
 
     }
