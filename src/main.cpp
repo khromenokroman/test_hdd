@@ -1,5 +1,6 @@
 #include<iostream>
 
+
 #include "../lib/work_hdd.h"
 
 int main()
@@ -7,7 +8,7 @@ int main()
     std::string file_name = "test_ssd";
     try
     {
-        Device nvme(file_name, 2);
+        Device nvme(file_name, 20);
         nvme.write_file();
 
     }

@@ -4,11 +4,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#include <chrono>
 #include <iostream>
 
 #include <memory>
-
-
 
 void Device::create_buffer() // create buffer
 {
@@ -17,21 +16,20 @@ void Device::create_buffer() // create buffer
 
 void Device::parser_file_name(std::string &file_name)
 {
-    if (file_name.length()> 15) // maybe long name
+    if (file_name.length() > 15) // maybe long name
         throw My_error("[ERROR] the name is too long!!!");
-    std::string path = "/tmp/" + file_name + "XXXXXX"; //sum
-    for (int i=0;i<path.length();i++)
+    std::string path = "/tmp/" + file_name + "XXXXXX"; // sum
+    for (int i = 0; i < path.length(); i++)
     {
         tmp_file[i] = path[i];
     }
-    tmp_file[path.length()] = '\0'; //end string
+    tmp_file[path.length()] = '\0'; // end string
 }
 
 Device::Device(std::string &file_name) // protect open file
 {
-    parser_file_name(file_name); //pasre
-    open_file(); //open file
-    
+    parser_file_name(file_name); // pasre
+    open_file();                 // open file
 }
 
 Device::Device(std::string &file_name, size_t size_data_gib) : Device::Device(file_name)
@@ -57,7 +55,10 @@ void Device::open_file() // open file
 }
 
 void Device::write_file()
-{    
+{
+    long show_data = data_write; // show info
+    auto start = std::chrono::high_resolution_clock::now(); //time start
+
     for (; data_write != 0; data_write - buffer_size)
     {
         size_t bytes_to_write = buffer_size;
@@ -65,7 +66,7 @@ void Device::write_file()
         {
 
             int currently_written = write(fd, buf.get() + bytes_written, bytes_to_write - bytes_written); // write
-            if (currently_written == -1)                                                            // maybe error
+            if (currently_written == -1)                                                                  // maybe error
             {
                 throw My_error("[ERROR] write in file!");
             }
@@ -74,4 +75,14 @@ void Device::write_file()
         }
         data_write -= buffer_size;
     }
+
+    auto stop = std::chrono::high_resolution_clock::now(); //time stop
+
+    std::chrono::duration<float> duration = stop - start; // duration
+
+    std::cout << "Write data: " << show_data << " bytes"
+              << "\n"
+              << "Time write: " << duration.count() << " sec.\n"
+              << "Speed write: " << (show_data / duration.count())/1024/1014 << " Mbytes/sec."
+              << "\n"; // show info
 }
